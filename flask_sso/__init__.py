@@ -116,7 +116,7 @@ class SSO(object):
         error = False
         for header, attr in self.app.config['SSO_ATTRIBUTE_MAP'].items():
             required, name = attr
-            values = request.environment.get(header, None)
+            values = request.environ.get(header, None)
             value = None
             if values:
                 # If multiple attributes releases just care about the 1st one
