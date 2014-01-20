@@ -86,7 +86,10 @@ class SSO(object):
         if 'sso' in app.extensions:
             raise RuntimeError("Flask application already initialized")
         app.extensions['sso'] = self
-        app.config.from_object(config)
+
+        # Set default configuration
+        app.config.setdefault('SSO_LOGIN_URL', config.SSO_LOGIN_URL)
+        app.config.setdefault('SSO_ATTRIBUTE_MAP', config.SSO_ATTRIBUTE_MAP)
 
         app.add_url_rule(app.config.get('SSO_LOGIN_URL'), 'sso_login',
                                         self.login)
