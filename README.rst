@@ -19,7 +19,7 @@ Flask-SSO is on PyPI so all you need is: ::
 
 Documentation
 ============
-Documentation is available at <http://flask-sso.readthedocs.org> or can be build using Sphinx: ::
+Documentation is available at <http://flask-sso.readthedocs.org> or can be built using Sphinx: ::
 
     pip install Sphinx
     python setup.py build_sphinx
