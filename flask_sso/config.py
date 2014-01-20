@@ -49,11 +49,30 @@ SSO_ATTRIBUTE_MAP = {
     "HTTP_SHIB_SN": (False, "last_name"),
 }
 
+SSO_LOGIN_URL
+-------------
 
+Url of login handler. Default: `/login/sso`.
+
+SSO_LOGIN_ENDPOINT
+------------------
+
+Name of login handler endpoint to be used in `url_for` function.
+
+Example::
+
+>>> from flask.ext.sso.config import *
+>>> url_for(SSO_LOGIN_ENDPOINT)
+/login/sso
+>>> SSO_LOGIN_URL
+/login/sso
+
+
+Default: `sso_login`.
 """
-
-from __future__ import absolute_import
 
 SSO_ATTRIBUTE_MAP = {}
 
 SSO_LOGIN_URL = '/login/sso'
+
+SSO_LOGIN_ENDPOINT = 'sso_login'

@@ -89,10 +89,12 @@ class SSO(object):
 
         # Set default configuration
         app.config.setdefault('SSO_LOGIN_URL', config.SSO_LOGIN_URL)
+        app.config.setdefault('SSO_LOGIN_ENDPOINT', config.SSO_LOGIN_ENDPOINT)
         app.config.setdefault('SSO_ATTRIBUTE_MAP', config.SSO_ATTRIBUTE_MAP)
 
-        app.add_url_rule(app.config.get('SSO_LOGIN_URL'), 'sso_login',
-                                        self.login)
+        app.add_url_rule(app.config.get('SSO_LOGIN_URL'),
+                         app.config.get('SSO_LOGIN_ENDPOINT'),
+                         self.login)
 
     def login_handler(self, callback):
         """
