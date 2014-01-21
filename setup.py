@@ -47,6 +47,7 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
+        'blinker',
         'six',
     ],
     classifiers=[
