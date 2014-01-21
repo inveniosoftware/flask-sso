@@ -23,7 +23,10 @@
 
 from __future__ import absolute_import
 
+import six
+
 from .helpers import FlaskTestCase
+
 from contextlib import contextmanager
 from flask import request_started, request
 from flask_sso import SSO, config as default_config, sso_logged_in, SSOAttributeError
@@ -88,23 +91,24 @@ class TestSSO(FlaskTestCase):
             with request_environ_set(self.app, data):
                 with self.app.test_client() as c:
                     resp = c.get(self.app.config['SSO_LOGIN_URL'])
-                    assert resp.data == str(expected_data)
+                    self.assertEqual(resp.data,
+                                     six.b(expected_data))
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
         data = {'FOO': 'foo'}
-        expected_data = {'bar': 'foo', 'baa': None}
+        expected_data = "{'bar': 'foo', 'baa': None}"
 
         run(conf, data, expected_data)
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (True, 'baa')}
         data = {'FOO': 'foo', 'BAZ': 'baz;ignore'}
-        expected_data = {'bar': 'foo', 'baa': 'baz'}
+        expected_data = "{'bar': 'foo', 'baa': 'baz'}"
 
         run(conf, data, expected_data)
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
         data = {'FOO': 'foo', 'BAZ': 6}
-        expected_data = {'bar': 'foo', 'baa': 6}
+        expected_data = "{'bar': 'foo', 'baa': 6}"
 
         run(conf, data, expected_data)
 
