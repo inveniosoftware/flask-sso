@@ -40,9 +40,9 @@ from . import config
 from flask import current_app, request
 from flask.signals import Namespace
 
+
 class SSOAttributeError(Exception):
     pass
-
 
 # Signals
 _signals = Namespace()

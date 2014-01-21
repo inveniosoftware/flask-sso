@@ -24,7 +24,9 @@
 from __future__ import absolute_import
 
 from .helpers import FlaskTestCase
-from flask_sso import SSO
+from contextlib import contextmanager
+from flask import request_started, request
+from flask_sso import SSO, config as default_config, sso_logged_in, SSOAttributeError
 
 
 class TestSSO(FlaskTestCase):
@@ -57,3 +59,76 @@ class TestSSO(FlaskTestCase):
     def test_double_creation(self):
         SSO(app=self.app)
         self.assertRaises(RuntimeError, SSO, app=self.app)
+
+    def test_default_config(self):
+        SSO(app=self.app)
+        for k in dir(default_config):
+            if k.startswith('SSO_'):
+                assert self.app.config.get(k) == getattr(default_config, k)
+
+    def test_login_handler(self):
+        sso = SSO(app=self.app)
+
+        @sso.login_handler
+        def _callback(attr):
+            return str(attr)
+
+        @contextmanager
+        def request_environ_set(app, data):
+
+            def handler(sender, **kwargs):
+                for (k, v) in data.items():
+                    request.environ[k] = v
+
+            with request_started.connected_to(handler, app):
+                yield
+
+        def run(conf, data, expected_data):
+            self.app.config['SSO_ATTRIBUTE_MAP'] = conf
+            with request_environ_set(self.app, data):
+                with self.app.test_client() as c:
+                    resp = c.get(self.app.config['SSO_LOGIN_URL'])
+                    assert resp.data == str(expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': 'foo'}
+        expected_data = {'bar': 'foo', 'baa': None}
+
+        run(conf, data, expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (True, 'baa')}
+        data = {'FOO': 'foo', 'BAZ': 'baz;ignore'}
+        expected_data = {'bar': 'foo', 'baa': 'baz'}
+
+        run(conf, data, expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': 'foo', 'BAZ': 6}
+        expected_data = {'bar': 'foo', 'baa': 6}
+
+        run(conf, data, expected_data)
+
+    def test_invalid_attribute_map(self):
+        SSO(app=self.app)
+
+        @contextmanager
+        def request_environ_set(app, data):
+
+            def handler(sender, **kwargs):
+                for (k, v) in data.items():
+                    request.environ[k] = v
+
+            with request_started.connected_to(handler, app):
+                yield
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (True, 'baa')}
+        data = {'FOO': 'foo'}
+
+        self.app.config['SSO_ATTRIBUTE_MAP'] = conf
+        with request_environ_set(self.app, data):
+            with self.app.test_client() as c:
+                try:
+                    c.get(self.app.config['SSO_LOGIN_URL'])
+                    assert False
+                except SSOAttributeError:
+                    assert True
