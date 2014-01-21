@@ -101,7 +101,7 @@ class TestSSO(FlaskTestCase):
         run(conf, data, expected_data)
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (True, 'baa')}
-        data = {'FOO': 'foo', 'BAZ': 'baz;ignore'}
+        data = {'FOO': 'foo', 'BAZ': 'baz'}
         expected_data = {'bar': 'foo', 'baa': 'baz'}
 
         run(conf, data, expected_data)
