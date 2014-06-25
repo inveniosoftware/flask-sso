@@ -4,6 +4,15 @@ Changelog
 Here you can see the full list of changes between each Flask-SSO
 release.
 
+Version 0.2.0 (released 2014-06-26)
+-----------------------------------
+- Allowing ';' separator in HTTP data.
+- Fix for dictionary key order in tests.
+- Fix for Python 3.3 string comparison.
+- New dependency: Blinker.
+- Code coverage improved to 100%.
+- New configuration option SSO_LOGIN_ENDPOINT.
+
 Version 0.1
 -----------
 - Initial public release
