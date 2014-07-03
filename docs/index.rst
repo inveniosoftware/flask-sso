@@ -1,10 +1,17 @@
-**Flask-SSO** is an extension that eases Shibboleth authentication.
+===========
+ Flask-SSO
+===========
+
+Flask-SSO
+=========
 
 .. image:: https://travis-ci.org/inveniosoftware/flask-sso.png?branch=master
     :target: https://travis-ci.org/inveniosoftware/flask-sso
 .. image:: https://coveralls.io/repos/inveniosoftware/flask-sso/badge.png?branch=master
     :target: https://coveralls.io/r/inveniosoftware/flask-sso
 
+Flask-SSO is a Flask extension permitting to set up Shibboleth
+Single-Sign-On authentication in Flask based web applications.
 
 User's Guide
 ============
@@ -21,7 +28,7 @@ Flask-SSO with Flask.
 
 
 API Reference
-============
+=============
 
 If you are looking for information on a specific function, class or
 method, this part of the documentation is for you.
