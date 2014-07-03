@@ -6,10 +6,10 @@ Flask-SSO
     :target: https://travis-ci.org/inveniosoftware/flask-sso
 .. image:: https://coveralls.io/repos/inveniosoftware/flask-sso/badge.png?branch=master
     :target: https://coveralls.io/r/inveniosoftware/flask-sso
-.. image:: https://pypip.in/v/flask-sso/badge.png
-   :target: https://crate.io/packages/flask-sso/
-.. image:: https://pypip.in/d/flask-sso/badge.png
-   :target: https://crate.io/packages/flask-sso/
+.. image:: https://pypip.in/v/Flask-SSO/badge.png
+   :target: https://pypi.python.org/pypi/Flask-SSO/
+.. image:: https://pypip.in/d/Flask-SSO/badge.png
+   :target: https://pypi.python.org/pypi/Flask-SSO/
 
 Installation
 ============
