@@ -39,7 +39,7 @@ Running the test suite is as simple as: ::
 
 or, to also show code coverage: ::
 
-    source run-tests.sh
+    ./run-tests.sh
 
 License
 =======

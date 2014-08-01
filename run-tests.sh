@@ -1,3 +1,4 @@
+#!/bin/sh
 ##
 ## This file is part of Flask-SSO
 ## Copyright (C) 2014 CERN.
@@ -19,6 +20,5 @@
 ## In applying this licence, CERN does not waive the privileges and immunities
 ## granted to it by virtue of its status as an Intergovernmental Organization
 ## or submit itself to any jurisdiction.
-
 coverage run setup.py test
 coverage report -m
