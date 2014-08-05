@@ -3,23 +3,9 @@
 ## This file is part of Flask-SSO
 ## Copyright (C) 2014 CERN.
 ##
-## Flask-SSO is free software; you can redistribute it and/or
-## modify it under the terms of the GNU General Public License as
-## published by the Free Software Foundation; either version 2 of the
-## License, or (at your option) any later version.
-##
-## Flask-SSO is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-## General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with Flask-SSO; if not, write to the Free Software Foundation,
-## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
-##
-## In applying this licence, CERN does not waive the privileges and immunities
-## granted to it by virtue of its status as an Intergovernmental Organization
-## or submit itself to any jurisdiction.
+## Flask-SSO is free software; you can redistribute it and/or modify
+## it under the terms of the Revised BSD License; see LICENSE file for
+## more details.
 
 from setuptools import setup
 import os
@@ -36,7 +22,7 @@ setup(
     name='Flask-SSO',
     version=version,
     url='http://github.com/inveniosoftware/flask-sso/',
-    license='GPLv2',
+    license='BSD',
     author='Invenio collaboration',
     author_email='info@invenio-software.org',
     description='Flask-SSO extension that eases Shibboleth authentication.',
@@ -53,7 +39,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Framework :: Flask',
