@@ -8,15 +8,22 @@
 ## more details.
 
 """
-Flask extension
-===============
+Implement Shibboleth Single-Sign-On authentication.
 
 Flask-SSO is initialized like this:
+
+Initialization of the extension:
 
 >>> from flask import Flask
 >>> from flask_sso import SSO
 >>> app = Flask('myapp')
 >>> ext = SSO(app=app)
+
+or alternatively using the factory pattern:
+
+>>> app = Flask('myapp')
+>>> ext = SSO()
+>>> ext.init_app(app)
 """
 
 from __future__ import absolute_import
@@ -26,9 +33,12 @@ from . import config
 from flask import current_app, request
 from flask.signals import Namespace
 
+from .version import __version__
+
 
 class SSOAttributeError(Exception):
-    pass
+
+    """General SSO Attribute error."""
 
 # Signals
 _signals = Namespace()
@@ -39,32 +49,18 @@ sso_logged_in = _signals.signal('sso-logged-in')
 
 
 class SSO(object):
-    """
-    Flask extension
 
-    Initialization of the extension:
+    """Flask extension implementation."""
 
-    >>> from flask import Flask
-    >>> from flask_sso import SSO
-    >>> app = Flask('myapp')
-    >>> ext = SSO(app=app)
-
-    or alternatively using the factory pattern:
-
-    >>> app = Flask('myapp')
-    >>> ext = SSO()
-    >>> ext.init_app(app)
-    """
     def __init__(self, app=None):
+        """Initialize login callback."""
         self.login_callback = None
 
         if app is not None:
             self.init_app(app)
 
     def init_app(self, app):
-        """
-        Initialize a Flask application.
-        """
+        """Initialize a Flask application."""
         self.app = app
         # Follow the Flask guidelines on usage of app.extensions
         if not hasattr(app, 'extensions'):
@@ -83,9 +79,10 @@ class SSO(object):
                          self.login)
 
     def login_handler(self, callback):
-        """
-        This will set the callback for the `login` method. It takes one
-        argument with attributes map, and should return a Flask response.
+        """Set the callback for the `login` method.
+
+        It takes one argument with attributes map, and should return a Flask
+        response.
 
         :param callback: The callback for login.
         :type callback: function
@@ -93,6 +90,7 @@ class SSO(object):
         self.login_callback = callback
 
     def login(self):
+        """Implement application login endpoint for SSO."""
         attrs, error = self.parse_attributes()
         if error:
             raise SSOAttributeError
@@ -103,6 +101,7 @@ class SSO(object):
             return self.login_callback(attrs)
 
     def parse_attributes(self):
+        """Parse arguments from environment variables."""
         attrs = {}
         error = False
         for header, attr in self.app.config['SSO_ATTRIBUTE_MAP'].items():
@@ -115,9 +114,5 @@ class SSO(object):
                     error = True
         return attrs, error
 
-# Version information
-from .version import __version__
 
-__all__ = [
-    'SSO', '__version__'
-]
+__all__ = ('SSO', '__version__')

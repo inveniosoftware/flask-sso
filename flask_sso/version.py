@@ -7,8 +7,7 @@
 ## it under the terms of the Revised BSD License; see LICENSE file for
 ## more details.
 
-"""
-Version information for Flask-SSO
+"""Version information for Flask-SSO.
 
 This file is imported by ``flask_sso.__init__``, and parsed by
 ``setup.py`` as well as ``docs/conf.py``.

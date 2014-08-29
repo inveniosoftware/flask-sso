@@ -36,6 +36,9 @@ setup(
         'blinker',
         'six',
     ],
+    extras_require={
+        'docs': ['sphinx'],
+    },
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
