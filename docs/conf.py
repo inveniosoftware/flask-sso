@@ -112,7 +112,8 @@ html_theme = 'flask_small'
 # documentation.
 html_theme_options = {
     'index_logo': False,
-    'index_logo_height': '40px;'
+    'index_logo_height': '40px;',
+    'github_fork': 'inveniosoftware/flask-sso',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
