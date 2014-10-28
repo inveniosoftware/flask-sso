@@ -1,8 +1,8 @@
-==============================
- Flask-SSO v0.2.0 is released
-==============================
+==================
+ Flask-SSO v0.3.0
+==================
 
-Flask-SSO v0.2.0 was released on June 26, 2014.
+Flask-SSO v0.3.0 was released on July 30, 2015.
 
 About
 -----
@@ -13,33 +13,27 @@ Single-Sign-On authentication in Flask based web applications.
 What's new
 ----------
 
-- Allowing ';' separator in HTTP data.
-- Fix for dictionary key order in tests.
-- Fix for Python 3.3 string comparison.
-- New dependency: Blinker.
-- Code coverage improved to 100%.
-- New configuration option SSO_LOGIN_ENDPOINT.
+- The Flask-SSO extension is now released under more permissive
+  Revised BSD License. (#6)
+- For testing execute run-tests.sh instead of sourcing it. (#4)
+- New minimal application example. (#8)
+- New Tox support for Python-3.4. (#4)
 
 Installation
 ------------
 
-   $ pip install Flask-SSO
+   $ pip install flask-sso==0.3.0
 
 Documentation
 -------------
 
-   http://flask-sso.readthedocs.org/en/v0.2.0
+   http://flask-sso.readthedocs.org/en/v0.3.0
 
-Homepage
---------
-
-   https://github.com/inveniosoftware/flask-sso
-
-Good luck and thanks for choosing Flask-SSO.
+Happy hacking and thanks for flying Flask-SSO.
 
 | Invenio Development Team
 |   Email: info@invenio-software.org
 |   IRC: #invenio on irc.freenode.net
 |   Twitter: http://twitter.com/inveniosoftware
-|   GitHub: http://github.com/inveniosoftware
+|   GitHub: https://github.com/inveniosoftware/flask-sso
 |   URL: http://invenio-software.org

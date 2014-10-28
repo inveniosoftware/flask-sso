@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-##
-## This file is part of Flask-SSO
-## Copyright (C) 2014 CERN.
-##
-## Flask-SSO is free software; you can redistribute it and/or modify
-## it under the terms of the Revised BSD License; see LICENSE file for
-## more details.
+#
+# This file is part of Flask-SSO
+# Copyright (C) 2014, 2015 CERN.
+#
+# Flask-SSO is free software; you can redistribute it and/or modify
+# it under the terms of the Revised BSD License; see LICENSE file for
+# more details.
 
 # Travis CI file, that integrates with coveralls for reporting test coverage.
 
@@ -18,8 +18,8 @@ python:
   - "3.4"
 
 install:
-  - pip install --upgrade pip  --use-mirrors
-  - pip install coveralls --use-mirrors
+  - pip install --upgrade pip
+  - pip install coveralls
   - pip install .
 
 script:
@@ -30,3 +30,13 @@ after_success:
 
 notifications:
   email: false
+
+deploy:
+  provider: pypi
+  user: jirikuncar
+  password:
+    secure: txNr7JfTM8P69jTi8OJygQdUtKsw6f6BaBzG7OrqQ739x1wLlR6TO4282rHga/Cq4SMyGD9FHebhS1craYV1WmmsgebXpU1sP6RNYMXsBvQjloNTRbf8AnzEsB2GwC5fIHUgvKBVkXNAxm47atfu2QDlWnykvIqOeOi+IZLDk2Q=
+  on:
+    python: "2.7"
+    repo: inveniosoftware/flask-sso
+    tags: true
