@@ -1,8 +1,8 @@
 ==================
- Flask-SSO v0.3.0
+ Flask-SSO v0.4.0
 ==================
 
-Flask-SSO v0.3.0 was released on July 30, 2015.
+Flask-SSO v0.4.0 was released on October 5, 2015.
 
 About
 -----
@@ -13,21 +13,20 @@ Single-Sign-On authentication in Flask based web applications.
 What's new
 ----------
 
-- The Flask-SSO extension is now released under more permissive
-  Revised BSD License. (#6)
-- For testing execute run-tests.sh instead of sourcing it. (#4)
-- New minimal application example. (#8)
-- New Tox support for Python-3.4. (#4)
+- Login error handler can be added to SSO and will be called with
+  required attributes are missing. If login error callback is set
+  no `SSOAttributeError` will be raised and application can
+  return custom error response based on missing attributes.
 
 Installation
 ------------
 
-   $ pip install flask-sso==0.3.0
+   $ pip install flask-sso==0.4.0
 
 Documentation
 -------------
 
-   http://flask-sso.readthedocs.org/en/v0.3.0
+   http://flask-sso.readthedocs.org/en/v0.4.0
 
 Happy hacking and thanks for flying Flask-SSO.
 
