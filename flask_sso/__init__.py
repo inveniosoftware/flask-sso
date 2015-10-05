@@ -55,6 +55,7 @@ class SSO(object):
     def __init__(self, app=None):
         """Initialize login callback."""
         self.login_callback = None
+        self.login_error_callback = None
 
         if app is not None:
             self.init_app(app)
@@ -89,11 +90,25 @@ class SSO(object):
         """
         self.login_callback = callback
 
+    def login_error_handler(self, callback):
+        """Set the error callback for `login` method.
+
+        It takes one argument with attributes map, and should return a Flask
+        response.
+
+        :param callback: The callback for login error.
+        :type callback: function
+        """
+        self.login_error_callback = callback
+
     def login(self):
         """Implement application login endpoint for SSO."""
         attrs, error = self.parse_attributes()
         if error:
-            raise SSOAttributeError
+            if self.login_error_callback:
+                return self.login_error_callback(attrs)
+            else:
+                raise SSOAttributeError
 
         sso_logged_in.send(current_app._get_current_object(), attributes=attrs)
 

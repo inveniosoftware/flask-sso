@@ -15,7 +15,7 @@ from .helpers import FlaskTestCase
 
 from contextlib import contextmanager
 from flask import request_started, request
-from flask_sso import SSO, config as default_config, sso_logged_in, SSOAttributeError
+from flask_sso import SSO, config as default_config, SSOAttributeError
 
 
 class TestSSO(FlaskTestCase):
@@ -122,3 +122,84 @@ class TestSSO(FlaskTestCase):
                     assert False
                 except SSOAttributeError:
                     assert True
+
+    def test_login_error_handler(self):
+        sso = SSO(app=self.app)
+
+        @sso.login_handler
+        def _callback(attr):
+            return '{0}'.format(attr)
+
+        @sso.login_error_handler
+        def _callback_error(attr):
+            return '{0}'.format(attr)
+
+        @contextmanager
+        def request_environ_set(app, data):
+
+            def handler(sender, **kwargs):
+                for (k, v) in data.items():
+                    request.environ[k] = v
+
+            with request_started.connected_to(handler, app):
+                yield
+
+        def run(conf, data, expected_data):
+            self.app.config['SSO_ATTRIBUTE_MAP'] = conf
+            with request_environ_set(self.app, data):
+                with self.app.test_client() as c:
+                    resp = c.get(self.app.config['SSO_LOGIN_URL'])
+                    self.assertEqual(resp.data,
+                                     six.b('{0}'.format(expected_data)))
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': 'foo'}
+        expected_data = {'bar': 'foo', 'baa': None}
+
+        run(conf, data, expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (True, 'baa')}
+        data = {'FOO': 'foo', 'BAZ': 'baz'}
+        expected_data = {'bar': 'foo', 'baa': 'baz'}
+
+        run(conf, data, expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': 'foo', 'BAZ': 6}
+        expected_data = {'bar': 'foo', 'baa': 6}
+
+        run(conf, data, expected_data)
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': None, 'BAZ': 6}
+        expected_data = {'bar': None, 'baa': 6}
+
+        run(conf, data, expected_data)
+
+        # login handler will not be called when required attributes are missing
+        @sso.login_handler
+        def _callback_(attr):
+            assert False
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': None, 'BAZ': 6}
+        expected_data = {'bar': None, 'baa': 6}
+
+        run(conf, data, expected_data)
+
+        # login error handler will not be called when required attributes are
+        # present
+
+        @sso.login_handler
+        def _callback__(attr):
+            return '{0}'.format(attr)
+
+        @sso.login_error_handler
+        def _callback_error_(attr):
+            assert False
+
+        conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
+        data = {'FOO': 'foo', 'BAZ': 6}
+        expected_data = {'bar': 'foo', 'baa': 6}
+
+        run(conf, data, expected_data)
