@@ -24,7 +24,7 @@ setup(
     url='http://github.com/inveniosoftware/flask-sso/',
     license='BSD',
     author='Invenio collaboration',
-    author_email='info@invenio-software.org',
+    author_email='info@inveniosoftware.org',
     description='Flask-SSO extension that eases Shibboleth authentication.',
     long_description=open('README.rst').read(),
     packages=['flask_sso'],
