@@ -102,7 +102,7 @@ variables to a dictionary containing user information:
         'HTTP_SHIB_AUTHENTICATION_METHOD': (False, 'authmethod'),
     }
 
-    app.config.setdefault('SSO_ATTRIBUTE_MAP', SSO_ATTRIBUTE_MAP)
+    app.config['SSO_ATTRIBUTE_MAP'] = SSO_ATTRIBUTE_MAP
 
 
 Third, let's set up a login handler function that reads user information
