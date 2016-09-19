@@ -2,14 +2,20 @@
  Flask-SSO
 ===========
 
-.. image:: https://travis-ci.org/inveniosoftware/flask-sso.png?branch=master
-    :target: https://travis-ci.org/inveniosoftware/flask-sso
-.. image:: https://coveralls.io/repos/inveniosoftware/flask-sso/badge.png?branch=master
-    :target: https://coveralls.io/r/inveniosoftware/flask-sso
-.. image:: https://pypip.in/v/Flask-SSO/badge.png
-   :target: https://pypi.python.org/pypi/Flask-SSO/
-.. image:: https://pypip.in/d/Flask-SSO/badge.png
-   :target: https://pypi.python.org/pypi/Flask-SSO/
+.. image:: https://img.shields.io/travis/inveniosoftware/flask-sso.svg
+        :target: https://travis-ci.org/inveniosoftware/flask-sso
+
+.. image:: https://img.shields.io/coveralls/inveniosoftware/flask-sso.svg
+        :target: https://coveralls.io/r/inveniosoftware/flask-sso
+
+.. image:: https://img.shields.io/github/tag/inveniosoftware/flask-sso.svg
+        :target: https://github.com/inveniosoftware/flask-sso/releases
+
+.. image:: https://img.shields.io/pypi/dm/flask-sso.svg
+        :target: https://pypi.python.org/pypi/flask-sso
+
+.. image:: https://img.shields.io/github/license/inveniosoftware/flask-sso.svg
+        :target: https://github.com/inveniosoftware/flask-sso/blob/master/LICENSE
 
 About
 =====
@@ -26,9 +32,6 @@ Documentation
 =============
 Documentation is readable at http://flask-sso.readthedocs.org or can be built using Sphinx: ::
 
-    git submodule init
-    git submodule update
-    pip install Sphinx
     python setup.py build_sphinx
 
 Testing
@@ -37,6 +40,6 @@ Running the test suite is as simple as: ::
 
     python setup.py test
 
-or, to also show code coverage: ::
+or, to also test documentation and packaging: ::
 
     ./run-tests.sh

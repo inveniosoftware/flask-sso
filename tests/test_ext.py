@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Flask-SSO
-# Copyright (C) 2014, 2015 CERN.
+# Copyright (C) 2014, 2015, 2016 CERN.
 #
 # Flask-SSO is free software; you can redistribute it and/or modify
 # it under the terms of the Revised BSD License; see LICENSE file for
@@ -9,19 +9,18 @@
 
 from __future__ import absolute_import
 
-import six
-
-from .helpers import FlaskTestCase
-
 from contextlib import contextmanager
-from flask import request_started, request
-from flask_sso import SSO, config as default_config, SSOAttributeError
+
+from flask import request, request_started
+from helpers import FlaskTestCase
+
+from flask_sso import config as default_config
+from flask_sso import SSO, SSOAttributeError
 
 
 class TestSSO(FlaskTestCase):
-    """
-    Tests of extension creation
-    """
+    """Test extension creation."""
+
     def test_version(self):
         # Assert that version number can be parsed.
         from flask_sso import __version__
@@ -77,8 +76,8 @@ class TestSSO(FlaskTestCase):
             with request_environ_set(self.app, data):
                 with self.app.test_client() as c:
                     resp = c.get(self.app.config['SSO_LOGIN_URL'])
-                    self.assertEqual(resp.data,
-                                     six.b('{0}'.format(expected_data)))
+                    self.assertEqual(resp.data.decode('utf-8'),
+                                     '{0}'.format(expected_data))
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
         data = {'FOO': 'foo'}
@@ -149,8 +148,8 @@ class TestSSO(FlaskTestCase):
             with request_environ_set(self.app, data):
                 with self.app.test_client() as c:
                     resp = c.get(self.app.config['SSO_LOGIN_URL'])
-                    self.assertEqual(resp.data,
-                                     six.b('{0}'.format(expected_data)))
+                    self.assertEqual(resp.data.decode('utf-8'),
+                                     '{0}'.format(expected_data))
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
         data = {'FOO': 'foo'}

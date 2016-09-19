@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Flask-SSO
-# Copyright (C) 2014, 2015 CERN.
+# Copyright (C) 2014, 2015, 2016 CERN.
 #
 # Flask-SSO is free software; you can redistribute it and/or modify
 # it under the terms of the Revised BSD License; see LICENSE file for
@@ -9,29 +9,44 @@
 
 # Travis CI file, that integrates with coveralls for reporting test coverage.
 
-language: python
+notifications:
+  email: false
 
 sudo: false
 
+language: python
+
+matrix:
+  fast_finish: true
+
+cache:
+  - pip
+
+env:
+  - REQUIREMENTS=lowest
+  - REQUIREMENTS=release
+
 python:
-  - "2.6"
   - "2.7"
   - "3.3"
   - "3.4"
+  - "3.5"
+
+before_install:
+  - "travis_retry pip install --upgrade pip setuptools py"
+  - "travis_retry pip install twine wheel coveralls requirements-builder"
+  - "requirements-builder --level=min setup.py > .travis-lowest-requirements.txt"
+  - "requirements-builder --level=pypi setup.py > .travis-release-requirements.txt"
 
 install:
-  - pip install --upgrade pip
-  - pip install coveralls
-  - pip install .
+  - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
+  - "travis_retry pip install -e .[all]"
 
 script:
-  - coverage run --source=flask_sso setup.py test
+  - "./run-tests.sh"
 
 after_success:
   - coveralls
-
-notifications:
-  email: false
 
 deploy:
   provider: pypi

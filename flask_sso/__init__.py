@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Flask-SSO
-# Copyright (C) 2014, 2015 CERN.
+# Copyright (C) 2014, 2015, 2016 CERN.
 #
 # Flask-SSO is free software; you can redistribute it and/or modify
 # it under the terms of the Revised BSD License; see LICENSE file for
 # more details.
 
-"""
-Implement Shibboleth Single-Sign-On authentication.
+"""Implement Shibboleth Single-Sign-On authentication.
 
 Flask-SSO is initialized like this:
 
@@ -37,19 +36,20 @@ from .version import __version__
 
 
 class SSOAttributeError(Exception):
-
     """General SSO Attribute error."""
 
 # Signals
 _signals = Namespace()
 
-#: Sent when a user is logged in. In addition to the app (which is the
-#: sender), it is passed `user`, which is the user being logged in.
 sso_logged_in = _signals.signal('sso-logged-in')
+"""Sent when a user is logged in.
+
+In addition to the app (which is the sender), it is passed `user`, which is
+the user being logged in.
+"""
 
 
 class SSO(object):
-
     """Flask extension implementation."""
 
     def __init__(self, app=None):
@@ -86,7 +86,6 @@ class SSO(object):
         response.
 
         :param callback: The callback for login.
-        :type callback: function
         """
         self.login_callback = callback
 
@@ -97,7 +96,6 @@ class SSO(object):
         response.
 
         :param callback: The callback for login error.
-        :type callback: function
         """
         self.login_error_callback = callback
 

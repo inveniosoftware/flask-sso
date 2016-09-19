@@ -1,44 +1,79 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Flask-SSO
-# Copyright (C) 2014, 2015 CERN.
+# Copyright (C) 2014, 2016 CERN.
 #
 # Flask-SSO is free software; you can redistribute it and/or modify
 # it under the terms of the Revised BSD License; see LICENSE file for
 # more details.
 
-from setuptools import setup
-import os
-import re
+"""Flask-SSO extension that eases Shibboleth authentication."""
 
-# Get the version string.  Cannot be done with import!
-with open(os.path.join('flask_sso', 'version.py'), 'rt') as f:
-    version = re.search(
-        '__version__\s*=\s*"(?P<version>.*)"\n',
-        f.read()
-    ).group('version')
+import os
+
+from setuptools import find_packages, setup
+
+readme = open('README.rst').read()
+history = open('CHANGES.rst').read()
+
+tests_require = [
+    'check-manifest>=0.25',
+    'coverage>=4.0',
+    'isort>=4.2.2',
+    'pydocstyle>=1.0.0',
+    'pytest-cache>=1.0',
+    'pytest-cov>=1.8.0',
+    'pytest-pep8>=1.0.6',
+    'pytest>=2.8.0',
+]
+
+extras_require = {
+    'docs': [
+        'Sphinx>=1.4.2',
+    ],
+    'tests': tests_require,
+}
+
+extras_require['all'] = []
+for reqs in extras_require.values():
+    extras_require['all'].extend(reqs)
+
+setup_requires = [
+    'pytest-runner>=2.6.2',
+]
+
+install_requires = [
+    'Flask>=0.10',
+    'blinker>=1.4',
+]
+
+packages = find_packages()
+
+
+# Get the version string. Cannot be done with import!
+g = {}
+with open(os.path.join('flask_sso', 'version.py'), 'rt') as fp:
+    exec(fp.read(), g)
+    version = g['__version__']
 
 setup(
-    name='Flask-SSO',
+    name='flask-sso',
     version=version,
-    url='http://github.com/inveniosoftware/flask-sso/',
+    description=__doc__,
+    long_description=readme + '\n\n' + history,
+    keywords='flask SSO',
     license='BSD',
-    author='Invenio collaboration',
+    author='CERN',
     author_email='info@inveniosoftware.org',
-    description='Flask-SSO extension that eases Shibboleth authentication.',
-    long_description=open('README.rst').read(),
-    packages=['flask_sso'],
+    url='https://github.com/inveniosoftware/flask-sso',
+    packages=packages,
     zip_safe=False,
     include_package_data=True,
     platforms='any',
-    install_requires=[
-        'Flask',
-        'blinker',
-        'six',
-    ],
-    extras_require={
-        'docs': ['sphinx'],
-    },
+    extras_require=extras_require,
+    install_requires=install_requires,
+    setup_requires=setup_requires,
+    tests_require=tests_require,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
@@ -49,13 +84,11 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Development Status :: 5 - Production/Stable',
     ],
-    test_suite='nose.collector',
-    tests_require=['nose', 'coverage'],
 )

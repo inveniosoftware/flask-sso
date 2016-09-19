@@ -3,20 +3,20 @@
 ===========
 .. currentmodule:: flask_sso
 
+.. image:: https://img.shields.io/travis/inveniosoftware/flask-sso.svg
+        :target: https://travis-ci.org/inveniosoftware/flask-sso
 
-.. raw:: html
+.. image:: https://img.shields.io/coveralls/inveniosoftware/flask-sso.svg
+        :target: https://coveralls.io/r/inveniosoftware/flask-sso
 
-    <p style="height:22px; margin:0 0 0 2em; float:right">
-        <a href="https://travis-ci.org/inveniosoftware/flask-sso">
-            <img src="https://travis-ci.org/inveniosoftware/flask-sso.png?branch=master"
-                 alt="travis-ci badge"/>
-        </a>
-        <a href="https://coveralls.io/r/inveniosoftware/flask-sso">
-            <img src="https://coveralls.io/repos/inveniosoftware/flask-sso/badge.png?branch=master"
-                 alt="coveralls.io badge"/>
-        </a>
-    </p>
+.. image:: https://img.shields.io/github/tag/inveniosoftware/flask-sso.svg
+        :target: https://github.com/inveniosoftware/flask-sso/releases
 
+.. image:: https://img.shields.io/pypi/dm/flask-sso.svg
+        :target: https://pypi.python.org/pypi/flask-sso
+
+.. image:: https://img.shields.io/github/license/inveniosoftware/flask-sso.svg
+        :target: https://github.com/inveniosoftware/flask-sso/blob/master/LICENSE
 
 Flask-SSO is a Flask extension permitting to set up Shibboleth
 Single-Sign-On authentication in Flask based web applications.
@@ -45,7 +45,7 @@ The development version can be downloaded from `its page at GitHub
 
     $ git clone https://github.com/inveniosoftware/flask-sso.git
     $ cd flask-sso
-    $ python setup.py develop
+    $ pip install -e .
     $ ./run-tests.sh
 
 Requirements
@@ -55,9 +55,8 @@ Flask-SSO has the following dependencies:
 
 * `Flask <https://pypi.python.org/pypi/Flask>`_
 * `blinker <https://pypi.python.org/pypi/blinker>`_
-* `six <https://pypi.python.org/pypi/six>`_
 
-Flask-SSO requires Python version 2.6, 2.7 or 3.3+
+Flask-SSO requires Python version 2.7 or 3.3+.
 
 
 Quickstart
@@ -82,7 +81,7 @@ First, let's create the application and initialise the extension:
 
     from flask import Flask, session, redirect
     from flask_sso import SSO
-    app = Flask("myapp")
+    app = Flask('myapp')
     ext = SSO(app=app)
 
 
@@ -113,19 +112,19 @@ and stores it for later usage:
     @sso.login_handler
     def login_callback(user_info):
         """Store information in session."""
-        session["user"] = user_info
+        session['user'] = user_info
 
 
 Fourth, we can now greet the user using his SSO login name:
 
 .. code-block:: python
 
-    @app.route("/")
+    @app.route('/')
     def index():
         """Display user information or force login."""
-        if "user" in session:
-            return "Welcome {name}".format(name=session["user"]["nickname"])
-        return redirect(app.config["SSO_LOGIN_URL"])
+        if 'user' in session:
+            return 'Welcome {name}'.format(name=session['user']['nickname'])
+        return redirect(app.config['SSO_LOGIN_URL'])
 
 
 Configuration
@@ -149,7 +148,7 @@ Flask-SSO
    :members:
 
 
-.. include:: ../CHANGES
+.. include:: ../CHANGES.rst
 
 .. include:: ../CONTRIBUTING.rst
 

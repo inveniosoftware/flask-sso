@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Flask-SSO
-# Copyright (C) 2014, 2015 CERN.
+# Copyright (C) 2014, 2016 CERN.
 #
 # Flask-SSO is free software; you can redistribute it and/or modify
 # it under the terms of the Revised BSD License; see LICENSE file for
 # more details.
 
-include LICENSE AUTHORS CHANGES CONTRIBUTING.rst README.rst
-include .coveragerc run-tests.sh
+include LICENSE AUTHORS MAINTAINERS *.rst
+include .coveragerc .editorconfig .lgtm pytest.ini run-tests.sh
 include docs/*.rst docs/*.py docs/Makefile
 include tests/*.py
-recursive-include docs/_themes *.py *.css *.css_t *.conf *.html README
 recursive-include docs/_templates *.html
