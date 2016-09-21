@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import
 
+from ast import literal_eval
 from contextlib import contextmanager
 
 from flask import request, request_started
@@ -76,8 +77,8 @@ class TestSSO(FlaskTestCase):
             with request_environ_set(self.app, data):
                 with self.app.test_client() as c:
                     resp = c.get(self.app.config['SSO_LOGIN_URL'])
-                    self.assertEqual(resp.data.decode('utf-8'),
-                                     '{0}'.format(expected_data))
+                    assert literal_eval(resp.data.decode('utf-8')) \
+                        == expected_data
 
         conf = {'FOO': (True, 'bar'), 'BAZ': (False, 'baa')}
         data = {'FOO': 'foo'}
