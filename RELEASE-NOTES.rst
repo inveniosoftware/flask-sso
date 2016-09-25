@@ -26,7 +26,7 @@ Installation
 Documentation
 -------------
 
-   http://flask-sso.readthedocs.org/en/v0.4.0
+   http://flask-sso.readthedocs.io/en/v0.4.0
 
 Happy hacking and thanks for flying Flask-SSO.
 

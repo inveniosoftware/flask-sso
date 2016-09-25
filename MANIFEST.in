@@ -9,6 +9,6 @@
 
 include LICENSE AUTHORS MAINTAINERS *.rst
 include .coveragerc .editorconfig .lgtm pytest.ini run-tests.sh
-include docs/*.rst docs/*.py docs/Makefile
+include docs/*.rst docs/*.py docs/Makefile docs/requirements.txt
 include tests/*.py
 recursive-include docs/_templates *.html
