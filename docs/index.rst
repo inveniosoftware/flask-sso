@@ -82,7 +82,7 @@ First, let's create the application and initialise the extension:
     from flask import Flask, session, redirect
     from flask_sso import SSO
     app = Flask('myapp')
-    ext = SSO(app=app)
+    sso = SSO(app=app)
 
 
 Second, let's configure the attribute map for converting environment
